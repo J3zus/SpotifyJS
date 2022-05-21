@@ -1,3 +1,8 @@
+// Program Name: Practica 3
+//Author: Blas Fuentes
+//Description: Assignament3 for the STCS
+//Date: 05/20/2022
+
 //Habilitar demon de la base de datos
 //mongod --dbpath "C:\Users\bdjmo\OneDrive - Universidad de Guanajuato\Ditecma\STCS\Code\mongodb5\db"
 

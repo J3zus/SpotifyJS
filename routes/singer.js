@@ -11,8 +11,8 @@ const schema = Joi.object({
 
     realname: Joi.string() //El tipo string
         .min(3) // Que tenga una longitud minima de 3
-        .max(20) // Que tenga una longitud maxima de 10
-        .required(), // Es obligatorio
+        .max(20), // Que tenga una longitud maxima de 10
+    //.required(), // Es obligatorio
 
     nationality: Joi.string() //El tipo string
         .min(3) // Que tenga una longitud minima de 3
@@ -69,7 +69,7 @@ que se quiere actualizar */
 
 ruta.put("/:realname", (req, res) => {
     //Validamos la entrada de datos que se recuperan del body
-    const { error, value } = schema.validate({ artisticname: body.artisticname, realname: body.realname, nationality: body.nationality });
+    const { error, value } = schema.validate({ artisticname: req.body.artisticname, nationality: req.body.nationality });
     //Si los datos de entrada son validos de acuerdo
     //con el esquema que definimos, podemos guardar los datos
 
@@ -105,33 +105,33 @@ que se quiere desactivar */
 
 ruta.delete("/:realname", (req, res) => {
 
-    if (!error) {
-        let resultado = SingerdesactivarArtista(req.params.realname);
-        /* El resultado es una promesa qe se debe manejar
-        de acuerdo con la forma en que se resuelva */
-        resultado
-            .then(artist => { //Si se resuelve de manera correcta, vamos a recibir el artista
-                // como resultado vamos a enviar este json formado por un atributo valor con el artista que se actualizo
-                // como valor
-                res.json({
-                    valor: artist
-                });
-            })
-            //En caso de que halla un error
-            .catch(err => {
-                res.status(400).json({
-                    error: err
-                });
-            })
-    } else {
-        res.status(400).json({
-            error: error
-        });
-    }
+    let resultado = SingerdesactivarArtista(req.params.realname);
+    /* El resultado es una promesa qe se debe manejar
+    de acuerdo con la forma en que se resuelva */
+    resultado
+        .then(artist => { //Si se resuelve de manera correcta, vamos a recibir el artista
+            // como resultado vamos a enviar este json formado por un atributo valor con el artista que se actualizo
+            // como valor
+            res.json({
+                valor: artist
+            });
+        })
+        //En caso de que halla un error
+        .catch(err => {
+            res.status(400).json({
+                error: err
+            });
+        })
+        /*
+        if (!error) {
+            
+        } else {
+            res.status(400).json({
+                error: error
+            });
+        }*/
 
 });
-
-
 
 async function crearArtista(body) {
     //constructor, instancia del usuario
@@ -166,11 +166,11 @@ async function actualizarArtista(realname, body) {
     return artista;
 }
 
-async function desactivarArtista(realname) {
+async function SingerdesactivarArtista(realname) {
     /*Igual que arriba, usamos la funcion findOneAndUpdate
     con el artisticname como el atrbuto para identificar al
     artista*/
-    let artista = await Singer.findOneAndUpdate({ "artisticname": realname }, {
+    let artista = await Singer.findOneAndUpdate({ "realname": realname }, {
         $set: {
             /*Actualiza el estado del artista al false
             para desactivarlo*/

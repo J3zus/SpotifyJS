@@ -53,7 +53,7 @@ ruta.post('/', (req, res) => {
     const { error, value } = schema.validate({ title: body.title, label: body.label, genre: body.genre, year: body.year });
     //Si los datos de entrada son validos de acuerdo
     //con el esquema que definimos, podemos guardar los datos
-    console.log(error);
+
     if (!error) {
         let resultado = crearAlbum(body);
 
@@ -82,6 +82,7 @@ como parametro para identificar al album
 que se quiere actualizar */
 
 ruta.put("/:id", (req, res) => {
+    let body = req.body;
     //Validamos el nombre que tomamos del body
     const { error, value } = schema.validate({ title: body.title, label: body.label, genre: body.genre, year: body.year });
     //Si los datos de entrada son validos de acuerdo
@@ -115,24 +116,19 @@ que se quiere actualizar */
 
 ruta.delete("/:id", (req, res) => {
 
-    if (!error) {
-        let resultado = desactivarAlbum(req.params.id);
-        resultado
-            .then(album => {
-                res.json({
-                    valor: album
-                });
-            })
-            .catch(err => {
-                res.status(400).json({
-                    error: err
-                });
+    //console.log(error);
+    let resultado = desactivarAlbum(req.params.id);
+    resultado
+        .then(album => {
+            res.json({
+                valor: album
             });
-    } else {
-        res.status(400).json({
-            error: err
+        })
+        .catch(err => {
+            res.status(400).json({
+                error: err
+            });
         });
-    }
 });
 
 async function actualizarAlbum(id, body) {

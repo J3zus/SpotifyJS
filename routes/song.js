@@ -70,7 +70,7 @@ que se quiere actualizar */
 
 ruta.put("/:id", (req, res) => {
     //Validamos el nombre que tomamos del body
-    const { error, value } = schema.validate({ title: req.body.title })
+    const { error, value } = schema.validate({ title: req.body.title, tracknumber: req.body.tracknumber, lengthtrack: req.body.tracknumber })
 
     if (!error) {
         let resultado = actualizarCancion(req.params.id, req.body);
@@ -104,29 +104,23 @@ que se quiere desactivar */
 
 ruta.delete("/:id", (req, res) => {
 
-    if (!error) {
-        let resultado = desactivarCancion(req.params.id);
-        /* El resultado es una promesa qe se debe manejar
-        de acuerdo con la forma en que se resuelva */
-        resultado
-            .then(song => { //Si se resuelve de manera correcta, vamos a recibir el usuario
-                // como resultado vamos a enviar este json formado por un atributo valor con el usuario que se actualizo
-                // como valor
-                res.json({
-                    valor: song
-                });
-            })
-            //En caso de que halla un error
-            .catch(err => {
-                res.status(400).json({
-                    error: err
-                });
-            })
-    } else {
-        res.status(400).json({
-            error: error
-        });
-    }
+    let resultado = desactivarCancion(req.params.id);
+    /* El resultado es una promesa qe se debe manejar
+    de acuerdo con la forma en que se resuelva */
+    resultado
+        .then(song => { //Si se resuelve de manera correcta, vamos a recibir el usuario
+            // como resultado vamos a enviar este json formado por un atributo valor con el usuario que se actualizo
+            // como valor
+            res.json({
+                valor: song
+            });
+        })
+        //En caso de que halla un error
+        .catch(err => {
+            res.status(400).json({
+                error: err
+            });
+        })
 
 });
 
