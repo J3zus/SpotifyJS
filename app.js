@@ -11,7 +11,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const singer = require('./routes/singer');
 const album = require('./routes/album');
-const registros = require('./routes/registros');
+const registroAtoS = require('./routes/registroAtoS');
+const registroStoA = require('./routes/registroStoA');
 const song = require('./routes/song');
 const app = express();
 
@@ -23,7 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/singer', singer);
 app.use('/api/album', album);
 app.use('/api/song', song);
-app.use('/api/registros', registros);
+app.use('/api/registroAtoS', registroAtoS);
+app.use('/api/registroStoA', registroStoA);
 
 const port = process.env.PORT || 3000;
 
