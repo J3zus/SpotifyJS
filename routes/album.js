@@ -144,6 +144,10 @@ async function actualizarAlbum(id, body) {
 }
 
 async function crearAlbum(body) {
+    //constructor, instancia de album
+    //Al momento de crear artistas si tienes dos nombres, para representarlo en el url tendras
+    //que sustituir el espacio por un %20
+
     let albums = new Album({
         title: body.title,
         label: body.label,

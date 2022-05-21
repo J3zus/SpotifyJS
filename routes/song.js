@@ -126,6 +126,9 @@ ruta.delete("/:id", (req, res) => {
 
 async function crearCancion(body) {
     //constructor, instancia de la cancion
+    //Al momento de crear artistas si tienes dos nombres, para representarlo en el url tendras
+    //que sustituir el espacio por un %20
+
     let cancion = new Song({
         title: body.title,
         tracknumber: body.tracknumber,

@@ -97,7 +97,7 @@ async function listarSong(id) {
 }
 
 async function quitarAlbum(id, titlealbum, titlesong) {
-    console.log(titlesong);
+    console.log("Hello");
     let resultado = await Album.updateOne({ 'title': titlealbum }, {
         //Extraccion de elementos dentro de un arreglo
         $pullAll: {

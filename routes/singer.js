@@ -134,7 +134,9 @@ ruta.delete("/:realname", (req, res) => {
 });
 
 async function crearArtista(body) {
-    //constructor, instancia del usuario
+    //constructor, instancia de singer
+    //Al momento de crear artistas si tienes dos nombres, para representarlo en el url tendras
+    //que sustituir el espacio por un %20
     let artista = new Singer({
         artisticname: body.artisticname,
         realname: body.realname,
